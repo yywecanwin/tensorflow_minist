@@ -6,6 +6,7 @@ import model
 import tensorflow as tf
 import input_data
 data = input_data.read_data_sets('MNIST_data',one_hot=True)
+
 with tf.variable_scope("convolutional"):
     x = tf.placeholder(tf.float32,[None,784],name="x")
     keep_prob = tf.placeholder(tf.float32)
@@ -49,8 +50,10 @@ with tf.Session() as sess:
     print(sess.run(accuracy,feed_dict={x:data.test.images,y_:data.test.labels,keep_prob:1.0}))
 
     path = saver.save(
-        sess,os.path.join(os.path.dirname(__file__),'data','convalutional.ckpt'),
-        write_meta_graph = False,write_meta_state = False)
+        sess,
+        os.path.join(os.path.dirname(__file__),'data','convalutional.ckpt'),
+        write_meta_graph = False,
+        write_state = False)
 
     #打印最后保存的路径
     print("Saved",path)
